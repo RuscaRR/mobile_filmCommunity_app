@@ -1,0 +1,62 @@
+<resources>
+    <string name="app_name">Claquete</string>
+    <!-- idioma usado nas buscas do TMDB -->
+    <string name="idioma_api">en-US</string>
+
+    <!-- Login -->
+    <string name="login_subtitulo">Your movie and series catalog</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_senha">Password</string>
+    <string name="btn_entrar">Sign in</string>
+    <string name="btn_criar_conta">Create account</string>
+    <string name="erro_login">Wrong email or password</string>
+    <string name="erro_campos">Fill in all fields</string>
+
+    <!-- Cadastro de usuário -->
+    <string name="cadastro_titulo">New account</string>
+    <string name="hint_nome">Name</string>
+    <string name="msg_escolher_foto">Tap the image to choose a photo</string>
+    <string name="btn_salvar">Save</string>
+    <string name="btn_voltar">Back</string>
+    <string name="erro_email_existente">This email is already registered</string>
+    <string name="msg_conta_criada">Account created! Sign in to continue</string>
+
+    <!-- Catálogo (MainActivity) -->
+    <string name="main_titulo">Catalog</string>
+    <string name="hint_filtro">Filter by title</string>
+    <string name="btn_adicionar">Add</string>
+    <string name="btn_comunidade">Community</string>
+    <string name="btn_perfil">Profile</string>
+    <string name="btn_tema">Day / Night</string>
+    <string name="btn_idioma">Português</string>
+
+    <!-- Busca no TMDB -->
+    <string name="busca_titulo">Search on TMDB</string>
+    <string name="hint_busca">Movie or series name</string>
+    <string name="btn_buscar">Search</string>
+    <string name="erro_busca">Could not search. Check the internet connection and the API key.</string>
+    <string name="msg_nenhum_resultado">No results found</string>
+    <string name="msg_ja_no_catalogo">This title is already in the catalog</string>
+    <string name="msg_adicionado">Added to the catalog!</string>
+
+    <!-- Detalhes -->
+    <string name="tipo_filme">Movie</string>
+    <string name="tipo_serie">Series</string>
+    <string name="info_filme">%1$s • %2$s</string>
+    <string name="sem_sinopse">No synopsis available.</string>
+    <string name="btn_ver_tmdb">View on TMDB</string>
+    <string name="btn_remover">Remove</string>
+    <string name="avaliacoes_titulo">Reviews</string>
+    <string name="media_notas">Average: %1$.1f (%2$d reviews)</string>
+    <string name="sem_avaliacoes">No reviews yet</string>
+    <string name="hint_comentario">Write your review</string>
+    <string name="btn_avaliar">Rate</string>
+    <string name="erro_nota">Choose a rating</string>
+    <string name="msg_avaliacao_salva">Review saved!</string>
+
+    <!-- Comunidade e perfil -->
+    <string name="comunidade_titulo">Community</string>
+    <string name="total_avaliacoes">%1$d reviews</string>
+    <string name="btn_sair">Sign out</string>
+    <string name="nota">★ %1$.1f</string>
+</resources>

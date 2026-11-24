@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#B3261E</color>
+    <color name="onPrimary">#FFFFFF</color>
+    <color name="secondary">#F2B705</color>
+    <color name="onSecondary">#1C1B1F</color>
+    <color name="background">#FFF8F6</color>
+    <color name="onBackground">#1C1B1F</color>
+    <color name="card">#FFFFFF</color>
+</resources>

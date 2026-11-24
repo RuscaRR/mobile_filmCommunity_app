@@ -1,33 +1,17 @@
 package br.com.claquete.model
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
+import androidx.room.PrimaryKey
+import java.io.Serializable
 
-@Entity(
-    tableName = "avaliacao",
-    primaryKeys = ["usuarioId", "filmeId"],
-    foreignKeys = [
-        ForeignKey(
-            entity = Usuario::class,
-            parentColumns = ["id"],
-            childColumns = ["usuarioId"],
-            onDelete = ForeignKey.CASCADE
-        ),
-        ForeignKey(
-            entity = Filme::class,
-            parentColumns = ["id"],
-            childColumns = ["filmeId"],
-            onDelete = ForeignKey.CASCADE
-        )
-    ],
-    indices = [Index(value = ["filmeId"])]
-)
+@Entity(tableName = "avaliacao")
 data class Avaliacao(
-    val usuarioId: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0,
     val filmeId: Int,
-    val nota: Float = 0f,
-    val favorito: Boolean = false,
-    val resenha: String = "",
-    val data: Long = System.currentTimeMillis()
-)
+    val usuarioId: Int,
+    val nomeUsuario: String,
+    val tituloFilme: String,
+    val nota: Float,
+    val comentario: String
+) : Serializable

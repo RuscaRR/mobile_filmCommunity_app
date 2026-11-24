@@ -1,35 +1,19 @@
 package br.com.claquete.model
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity(
-    tableName = "filme",
-    foreignKeys = [
-        ForeignKey(
-            entity = Usuario::class,
-            parentColumns = ["id"],
-            childColumns = ["usuarioId"],
-            onDelete = ForeignKey.SET_NULL
-        )
-    ],
-    indices = [Index(value = ["usuarioId"])]
-)
+// Filme ou série salvo no catálogo. Os dados vêm da API do TMDB.
+@Entity(tableName = "filme")
 data class Filme(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-
+    val tmdbId: Int,
+    val tipo: String, // "movie" (filme) ou "tv" (série), igual ao TMDB
     val titulo: String,
-    val diretor: String,
-    val ano: Int,
-    val genero: String,
-    val duracao: Int,
+    val ano: String,
     val sinopse: String,
-    val poster: String = "",
-    val trailerUrl: String = "",
-    val usuarioId: Int? = null,
-    val dataCadastro: Long = System.currentTimeMillis()
+    val poster: String,
+    val usuarioId: Int = 0
 ) : Serializable

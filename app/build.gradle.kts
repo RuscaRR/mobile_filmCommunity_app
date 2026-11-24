@@ -1,7 +1,16 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.kapt)
+}
+
+// Lê a chave da API do TMDB do arquivo local.properties (ele não vai para o GitHub)
+val propriedades = Properties()
+val arquivoLocal = rootProject.file("local.properties")
+if (arquivoLocal.exists()) {
+    propriedades.load(arquivoLocal.inputStream())
 }
 
 android {
@@ -16,6 +25,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "TMDB_API_KEY", "\"${propriedades.getProperty("TMDB_API_KEY", "")}\"")
     }
 
     buildTypes {
@@ -39,6 +50,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -48,6 +60,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.lifecycle.runtime.ktx)
 
     implementation(libs.androidx.room.runtime)
