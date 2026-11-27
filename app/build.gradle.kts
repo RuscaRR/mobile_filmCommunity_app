@@ -14,11 +14,11 @@ if (arquivoLocal.exists()) {
 }
 
 android {
-    namespace = "br.com.claquete"
+    namespace = "br.com.ifilmes"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "br.com.claquete"
+        applicationId = "br.com.ifilmes"
         minSdk = 26
         targetSdk = 34
         versionCode = 1

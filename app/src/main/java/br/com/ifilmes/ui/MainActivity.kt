@@ -1,10 +1,12 @@
-package br.com.claquete.ui
+package br.com.ifilmes.ui
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
+import android.widget.PopupMenu
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -12,45 +14,58 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.LocaleListCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.claquete.adapter.FilmeAdapter
-import br.com.claquete.data.ClaqueteDatabase
-import br.com.claquete.databinding.ActivityMainBinding
-import br.com.claquete.model.Filme
+import br.com.ifilmes.R
+import br.com.ifilmes.adapter.FilmeAdapter
+import br.com.ifilmes.data.IFilmesDatabase
+import br.com.ifilmes.databinding.ActivityMainBinding
+import br.com.ifilmes.model.Filme
+import br.com.ifilmes.util.FiltroApp
+import br.com.ifilmes.util.Sessao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: FilmeAdapter
+    private lateinit var adapterLancamentos: FilmeAdapter
+    private lateinit var adapterMinhaLista: FilmeAdapter
     private lateinit var launcherAtualizar: ActivityResultLauncher<Intent>
-    private lateinit var db: ClaqueteDatabase
+    private lateinit var db: IFilmesDatabase
     private var filmes: List<Filme> = listOf()
     private var usuarioId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (!FiltroApp.doFilter(this)) return
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        db = ClaqueteDatabase.getInstance(this)
-        usuarioId = intent.getIntExtra("usuarioId", 0)
+        db = IFilmesDatabase.getInstance(this)
+        usuarioId = Sessao.getUsuarioId(this)
         setupRecyclerView()
         setupLauncher()
         setupListeners()
         carregarFilmes()
     }
 
+    // Duas listas na tela: os lançamentos que já vêm no app e os filmes adicionados pela busca
     private fun setupRecyclerView() {
-        adapter = FilmeAdapter(filmes) { filme ->
-            val intent = Intent(this, DetalheFilmeActivity::class.java)
-            intent.putExtra("filmeId", filme.id)
-            intent.putExtra("usuarioId", usuarioId)
-            launcherAtualizar.launch(intent)
-        }
-        binding.rvFilmes.apply {
+        adapterLancamentos = FilmeAdapter(listOf()) { filme -> abrirDetalhe(filme) }
+        binding.rvLancamentos.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = this@MainActivity.adapter
+            adapter = adapterLancamentos
         }
+
+        adapterMinhaLista = FilmeAdapter(listOf()) { filme -> abrirDetalhe(filme) }
+        binding.rvMinhaLista.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = adapterMinhaLista
+        }
+    }
+
+    private fun abrirDetalhe(filme: Filme) {
+        val intent = Intent(this, DetalheFilmeActivity::class.java)
+        intent.putExtra("filmeId", filme.id)
+        launcherAtualizar.launch(intent)
     }
 
     // Quando a busca adiciona um filme ou o detalhe remove um, a lista é recarregada
@@ -67,22 +82,18 @@ class MainActivity : AppCompatActivity() {
     private fun setupListeners() {
         binding.btnAdicionar.setOnClickListener {
             val intent = Intent(this, BuscaFilmeActivity::class.java)
-            intent.putExtra("usuarioId", usuarioId)
             launcherAtualizar.launch(intent)
         }
         binding.btnComunidade.setOnClickListener {
             val intent = Intent(this, ComunidadeActivity::class.java)
-            intent.putExtra("usuarioId", usuarioId)
             startActivity(intent)
         }
         binding.btnPerfil.setOnClickListener {
             val intent = Intent(this, PerfilActivity::class.java)
             intent.putExtra("perfilId", usuarioId)
-            intent.putExtra("usuarioId", usuarioId)
             startActivity(intent)
         }
-        binding.btnTema.setOnClickListener { mudarTema() }
-        binding.btnIdioma.setOnClickListener { alternarIdioma() }
+        binding.btnConfig.setOnClickListener { abrirConfiguracoes() }
 
         binding.etFiltro.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -107,7 +118,31 @@ class MainActivity : AppCompatActivity() {
         val filtrados = filmes.filter {
             it.titulo.lowercase().contains(filtro)
         }
-        adapter.updateLista(filtrados)
+
+        // usuarioId = 0 são os filmes do sistema (Lançamentos 2026);
+        // os outros foram adicionados pelos usuários na busca (Minha Lista)
+        val lancamentos = filtrados.filter { it.usuarioId == 0 }
+        val minhaLista = filtrados.filter { it.usuarioId != 0 }
+
+        adapterLancamentos.updateLista(lancamentos)
+        adapterMinhaLista.updateLista(minhaLista)
+
+        binding.tvLancamentos.visibility = if (lancamentos.isEmpty()) View.GONE else View.VISIBLE
+        binding.tvListaVazia.visibility = if (minhaLista.isEmpty()) View.VISIBLE else View.GONE
+    }
+
+    // A engrenagem abre um menu com as duas opções: tema e idioma
+    private fun abrirConfiguracoes() {
+        val menu = PopupMenu(this, binding.btnConfig)
+        menu.menuInflater.inflate(R.menu.menu_config, menu.menu)
+        menu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.menuTema -> mudarTema()
+                R.id.menuIdioma -> alternarIdioma()
+            }
+            true
+        }
+        menu.show()
     }
 
     private fun mudarTema() {

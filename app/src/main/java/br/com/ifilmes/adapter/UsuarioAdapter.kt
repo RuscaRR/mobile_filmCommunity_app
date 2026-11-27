@@ -1,12 +1,12 @@
-package br.com.claquete.adapter
+package br.com.ifilmes.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
-import br.com.claquete.R
-import br.com.claquete.databinding.ItemUsuarioBinding
-import br.com.claquete.model.Usuario
+import br.com.ifilmes.R
+import br.com.ifilmes.databinding.ItemUsuarioBinding
+import br.com.ifilmes.model.Usuario
 
 class UsuarioAdapter(
     private var usuarios: List<Usuario>,

@@ -1,9 +1,9 @@
-package br.com.claquete.data.dao
+package br.com.ifilmes.data.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import br.com.claquete.model.Usuario
+import br.com.ifilmes.model.Usuario
 
 @Dao
 interface UsuarioDao {

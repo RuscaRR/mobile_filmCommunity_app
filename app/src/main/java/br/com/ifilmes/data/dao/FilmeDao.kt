@@ -1,10 +1,10 @@
-package br.com.claquete.data.dao
+package br.com.ifilmes.data.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import br.com.claquete.model.Filme
+import br.com.ifilmes.model.Filme
 
 @Dao
 interface FilmeDao {

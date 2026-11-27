@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Opções que aparecem ao tocar na engrenagem da tela de catálogo -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menuTema"
+        android:title="@string/btn_tema" />
+    <item
+        android:id="@+id/menuIdioma"
+        android:title="@string/btn_idioma" />
+</menu>

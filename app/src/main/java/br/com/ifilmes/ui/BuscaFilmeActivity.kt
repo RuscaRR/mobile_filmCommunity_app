@@ -1,4 +1,4 @@
-package br.com.claquete.ui
+package br.com.ifilmes.ui
 
 import android.app.Activity
 import android.os.Bundle
@@ -7,12 +7,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.claquete.R
-import br.com.claquete.adapter.FilmeAdapter
-import br.com.claquete.data.ClaqueteDatabase
-import br.com.claquete.data.TmdbApi
-import br.com.claquete.databinding.ActivityBuscaFilmeBinding
-import br.com.claquete.model.Filme
+import br.com.ifilmes.R
+import br.com.ifilmes.adapter.FilmeAdapter
+import br.com.ifilmes.data.IFilmesDatabase
+import br.com.ifilmes.data.TmdbApi
+import br.com.ifilmes.databinding.ActivityBuscaFilmeBinding
+import br.com.ifilmes.model.Filme
+import br.com.ifilmes.util.FiltroApp
+import br.com.ifilmes.util.Sessao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,15 +22,16 @@ import kotlinx.coroutines.withContext
 class BuscaFilmeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBuscaFilmeBinding
     private lateinit var adapter: FilmeAdapter
-    private lateinit var db: ClaqueteDatabase
+    private lateinit var db: IFilmesDatabase
     private var usuarioId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (!FiltroApp.doFilter(this)) return
         binding = ActivityBuscaFilmeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        db = ClaqueteDatabase.getInstance(this)
-        usuarioId = intent.getIntExtra("usuarioId", 0)
+        db = IFilmesDatabase.getInstance(this)
+        usuarioId = Sessao.getUsuarioId(this)
         setupRecyclerView()
         setupListeners()
     }

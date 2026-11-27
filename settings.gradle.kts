@@ -20,5 +20,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Claquete"
+rootProject.name = "IFilmes"
 include(":app")

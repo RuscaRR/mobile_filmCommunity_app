@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Claquete</string>
+    <string name="app_name">IFilmes</string>
     <!-- idioma usado nas buscas do TMDB -->
     <string name="idioma_api">pt-BR</string>
 
@@ -11,6 +11,7 @@
     <string name="btn_criar_conta">Criar conta</string>
     <string name="erro_login">E-mail ou senha incorretos</string>
     <string name="erro_campos">Preencha todos os campos</string>
+    <string name="msg_faca_login">Faça o login!</string>
 
     <!-- Cadastro de usuário -->
     <string name="cadastro_titulo">Nova conta</string>
@@ -27,6 +28,10 @@
     <string name="btn_adicionar">Adicionar</string>
     <string name="btn_comunidade">Comunidade</string>
     <string name="btn_perfil">Perfil</string>
+    <string name="titulo_lancamentos">Lançamentos 2026</string>
+    <string name="titulo_minha_lista">Minha Lista</string>
+    <string name="msg_lista_vazia">Toque em Adicionar para buscar um filme ou série.</string>
+    <string name="btn_config">Configurações</string>
     <string name="btn_tema">Dia / Noite</string>
     <string name="btn_idioma">English</string>
 
@@ -59,4 +64,26 @@
     <string name="total_avaliacoes">%1$d avaliações</string>
     <string name="btn_sair">Sair</string>
     <string name="nota">★ %1$.1f</string>
+
+    <!-- Filmes que já vêm no catálogo na primeira abertura do app -->
+    <string name="filme_homem_aranha">Homem-Aranha: Um Novo Dia</string>
+    <string name="sinopse_homem_aranha">Esquecido por todos que ama, Peter Parker combate o crime em tempo integral como Homem-Aranha, enquanto uma mudança nele mesmo e um vilão invisível ameaçam a cidade.</string>
+    <string name="filme_odisseia">A Odisseia</string>
+    <string name="sinopse_odisseia">Christopher Nolan adapta Homero: depois da Guerra de Troia, Odisseu enfrenta deuses, monstros e o mar na longa viagem de volta para Ítaca.</string>
+    <string name="filme_toy_story">Toy Story 5</string>
+    <string name="sinopse_toy_story">Woody, Buzz e a turma precisam disputar a atenção da Bonnie com um novo rival na hora da brincadeira: um tablet.</string>
+    <string name="filme_michael">Michael</string>
+    <string name="sinopse_michael">Cinebiografia de Michael Jackson, dos tempos do Jackson Five ao começo da carreira solo como o Rei do Pop.</string>
+    <string name="filme_mario">Super Mario Galaxy: O Filme</string>
+    <string name="sinopse_mario">Mario e Luigi viajam pelas estrelas para impedir o Bowser Jr., que quer libertar o pai e recuperar o nome da família.</string>
+    <string name="filme_diabo_prada">O Diabo Veste Prada 2</string>
+    <string name="sinopse_diabo_prada">Andy Sachs volta à Runway, onde Miranda Priestly luta para manter a revista viva num novo mundo da mídia, agora diante da ex-assistente Emily.</string>
+    <string name="filme_devoradores">Devoradores de Estrelas</string>
+    <string name="sinopse_devoradores">Um professor de ciências acorda sozinho em uma nave, sem memória, em uma missão para salvar a Terra de um Sol que está se apagando.</string>
+    <string name="filme_minions">Minions &amp; Monstros</string>
+    <string name="sinopse_minions">Os Minions conquistam Hollywood, perdem tudo e soltam monstros pelo mundo, e depois precisam se unir para consertar a bagunça que criaram.</string>
+    <string name="filme_mandaloriano">Star Wars: O Mandaloriano e Grogu</string>
+    <string name="sinopse_mandaloriano">Depois da queda do Império, a Nova República recruta o caçador de recompensas Din Djarin e seu aprendiz Grogu para caçar os senhores da guerra imperiais.</string>
+    <string name="filme_hoppers">Cara de Um, Focinho de Outro</string>
+    <string name="sinopse_hoppers">Com uma tecnologia que leva a mente humana para animais robôs, a amante dos bichos Mabel descobre segredos do mundo animal. Um filme da Pixar.</string>
 </resources>

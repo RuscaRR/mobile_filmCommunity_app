@@ -1,11 +1,11 @@
-package br.com.claquete.adapter
+package br.com.ifilmes.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import br.com.claquete.R
-import br.com.claquete.databinding.ItemAvaliacaoBinding
-import br.com.claquete.model.Avaliacao
+import br.com.ifilmes.R
+import br.com.ifilmes.databinding.ItemAvaliacaoBinding
+import br.com.ifilmes.model.Avaliacao
 
 // mostrarFilme = true: mostra o título do filme (tela de perfil)
 // mostrarFilme = false: mostra o nome de quem avaliou (tela de detalhes)

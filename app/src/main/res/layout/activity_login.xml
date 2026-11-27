@@ -9,11 +9,12 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="40dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_filme"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_ifilmes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -1,4 +1,4 @@
-package br.com.claquete.model
+package br.com.ifilmes.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

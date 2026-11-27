@@ -1,4 +1,4 @@
-package br.com.claquete.ui
+package br.com.ifilmes.ui
 
 import android.app.Activity
 import android.content.Intent
@@ -9,13 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.claquete.R
-import br.com.claquete.adapter.AvaliacaoAdapter
-import br.com.claquete.data.ClaqueteDatabase
-import br.com.claquete.databinding.ActivityDetalheFilmeBinding
-import br.com.claquete.model.Avaliacao
-import br.com.claquete.model.Filme
-import br.com.claquete.model.Usuario
+import br.com.ifilmes.R
+import br.com.ifilmes.adapter.AvaliacaoAdapter
+import br.com.ifilmes.data.IFilmesDatabase
+import br.com.ifilmes.databinding.ActivityDetalheFilmeBinding
+import br.com.ifilmes.model.Avaliacao
+import br.com.ifilmes.model.Filme
+import br.com.ifilmes.model.Usuario
+import br.com.ifilmes.util.FiltroApp
+import br.com.ifilmes.util.Sessao
 import coil.load
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,15 +26,16 @@ import kotlinx.coroutines.withContext
 class DetalheFilmeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetalheFilmeBinding
     private lateinit var adapter: AvaliacaoAdapter
-    private lateinit var db: ClaqueteDatabase
+    private lateinit var db: IFilmesDatabase
     private var filme: Filme? = null
     private var usuario: Usuario? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (!FiltroApp.doFilter(this)) return
         binding = ActivityDetalheFilmeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        db = ClaqueteDatabase.getInstance(this)
+        db = IFilmesDatabase.getInstance(this)
         setupRecyclerView()
         setupListeners()
         carregarDados()
@@ -56,10 +59,10 @@ class DetalheFilmeActivity : AppCompatActivity() {
         }
     }
 
-    // Busca no banco o filme e o usuário logado, usando os ids recebidos pela Intent
+    // Busca no banco o filme (id recebido pela Intent) e o usuário logado (id guardado na sessão)
     private fun carregarDados() {
         val filmeId = intent.getIntExtra("filmeId", 0)
-        val usuarioId = intent.getIntExtra("usuarioId", 0)
+        val usuarioId = Sessao.getUsuarioId(this)
 
         lifecycleScope.launch(Dispatchers.IO) {
             filme = db.filmeDao().buscarPorId(filmeId)

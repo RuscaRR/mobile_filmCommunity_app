@@ -18,24 +18,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnIdioma"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_idioma"
+    <!-- Engrenagem: abre o menu com as opções de tema e idioma -->
+    <ImageButton
+        android:id="@+id/btnConfig"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/btn_config"
+        android:src="@drawable/ic_config"
         app:layout_constraintBottom_toBottomOf="@id/tvTitulo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tvTitulo" />
-
-    <Button
-        android:id="@+id/btnTema"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btn_tema"
-        app:layout_constraintBottom_toBottomOf="@id/tvTitulo"
-        app:layout_constraintEnd_toStartOf="@id/btnIdioma"
         app:layout_constraintTop_toTopOf="@id/tvTitulo" />
 
     <EditText
@@ -61,8 +53,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/etFiltro" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFilmes"
+    <!-- Duas seções que rolam juntas: Lançamentos 2026 e Minha Lista -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollFilmes"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -70,7 +63,56 @@
         app:layout_constraintBottom_toTopOf="@id/btnComunidade"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etFiltro" />
+        app:layout_constraintTop_toBottomOf="@id/etFiltro">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvLancamentos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/titulo_lancamentos"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvLancamentos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/tvMinhaLista"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/titulo_minha_lista"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvListaVazia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/msg_lista_vazia" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMinhaLista"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
     <Button
         android:id="@+id/btnComunidade"

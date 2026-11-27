@@ -1,11 +1,11 @@
-package br.com.claquete.adapter
+package br.com.ifilmes.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import br.com.claquete.R
-import br.com.claquete.databinding.ItemFilmeBinding
-import br.com.claquete.model.Filme
+import br.com.ifilmes.R
+import br.com.ifilmes.databinding.ItemFilmeBinding
+import br.com.ifilmes.model.Filme
 import coil.load
 
 class FilmeAdapter(

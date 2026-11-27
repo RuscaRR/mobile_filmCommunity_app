@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Claquete</string>
+    <string name="app_name">IFilmes</string>
     <!-- idioma usado nas buscas do TMDB -->
     <string name="idioma_api">en-US</string>
 
@@ -11,6 +11,7 @@
     <string name="btn_criar_conta">Create account</string>
     <string name="erro_login">Wrong email or password</string>
     <string name="erro_campos">Fill in all fields</string>
+    <string name="msg_faca_login">Please sign in!</string>
 
     <!-- Cadastro de usuário -->
     <string name="cadastro_titulo">New account</string>
@@ -27,6 +28,10 @@
     <string name="btn_adicionar">Add</string>
     <string name="btn_comunidade">Community</string>
     <string name="btn_perfil">Profile</string>
+    <string name="titulo_lancamentos">2026 Releases</string>
+    <string name="titulo_minha_lista">My List</string>
+    <string name="msg_lista_vazia">Tap Add to search for a movie or series.</string>
+    <string name="btn_config">Settings</string>
     <string name="btn_tema">Day / Night</string>
     <string name="btn_idioma">Português</string>
 
@@ -59,4 +64,26 @@
     <string name="total_avaliacoes">%1$d reviews</string>
     <string name="btn_sair">Sign out</string>
     <string name="nota">★ %1$.1f</string>
+
+    <!-- Filmes que já vêm no catálogo na primeira abertura do app -->
+    <string name="filme_homem_aranha">Spider-Man: Brand New Day</string>
+    <string name="sinopse_homem_aranha">Forgotten by everyone he loves, Peter Parker fights crime full-time as Spider-Man while a change in himself and an invisible villain put the city at risk.</string>
+    <string name="filme_odisseia">The Odyssey</string>
+    <string name="sinopse_odisseia">Christopher Nolan adapts Homer: after the Trojan War, Odysseus faces gods, monsters and the sea on his long voyage back home to Ithaca.</string>
+    <string name="filme_toy_story">Toy Story 5</string>
+    <string name="sinopse_toy_story">Woody, Buzz and the gang must compete for Bonnie\'s attention with a brand-new rival for playtime: a tablet.</string>
+    <string name="filme_michael">Michael</string>
+    <string name="sinopse_michael">A biopic of Michael Jackson, from the Jackson Five years to the start of his solo career as the King of Pop.</string>
+    <string name="filme_mario">The Super Mario Galaxy Movie</string>
+    <string name="sinopse_mario">Mario and Luigi travel across the stars to stop Bowser Jr., who wants to free his father and restore the family name.</string>
+    <string name="filme_diabo_prada">The Devil Wears Prada 2</string>
+    <string name="sinopse_diabo_prada">Andy Sachs returns to Runway, where Miranda Priestly fights to keep the magazine alive in a new media world, now facing her former assistant Emily.</string>
+    <string name="filme_devoradores">Project Hail Mary</string>
+    <string name="sinopse_devoradores">A science teacher wakes up alone on a spaceship, with no memory, on a mission to save Earth from a dying Sun.</string>
+    <string name="filme_minions">Minions &amp; Monsters</string>
+    <string name="sinopse_minions">The Minions conquer Hollywood, lose it all and release monsters on the world, and then must team up to fix the chaos they caused.</string>
+    <string name="filme_mandaloriano">The Mandalorian and Grogu</string>
+    <string name="sinopse_mandaloriano">After the fall of the Empire, the New Republic recruits the bounty hunter Din Djarin and his apprentice Grogu to hunt down Imperial warlords.</string>
+    <string name="filme_hoppers">Hoppers</string>
+    <string name="sinopse_hoppers">With a technology that moves human minds into robot animals, the animal lover Mabel discovers secrets of the animal world. A Pixar film.</string>
 </resources>

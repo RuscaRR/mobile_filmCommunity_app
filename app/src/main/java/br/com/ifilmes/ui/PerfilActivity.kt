@@ -1,4 +1,4 @@
-package br.com.claquete.ui
+package br.com.ifilmes.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.claquete.R
-import br.com.claquete.adapter.AvaliacaoAdapter
-import br.com.claquete.data.ClaqueteDatabase
-import br.com.claquete.databinding.ActivityPerfilBinding
+import br.com.ifilmes.R
+import br.com.ifilmes.adapter.AvaliacaoAdapter
+import br.com.ifilmes.data.IFilmesDatabase
+import br.com.ifilmes.databinding.ActivityPerfilBinding
+import br.com.ifilmes.util.FiltroApp
+import br.com.ifilmes.util.Sessao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,13 +20,14 @@ import kotlinx.coroutines.withContext
 class PerfilActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPerfilBinding
     private lateinit var adapter: AvaliacaoAdapter
-    private lateinit var db: ClaqueteDatabase
+    private lateinit var db: IFilmesDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (!FiltroApp.doFilter(this)) return
         binding = ActivityPerfilBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        db = ClaqueteDatabase.getInstance(this)
+        db = IFilmesDatabase.getInstance(this)
         setupRecyclerView()
         setupListeners()
         carregarPerfil()
@@ -41,6 +44,7 @@ class PerfilActivity : AppCompatActivity() {
     private fun setupListeners() {
         binding.btnVoltar.setOnClickListener { finish() }
         binding.btnSair.setOnClickListener {
+            Sessao.invalidar(this) // logout: apaga a sessão, como o doGetLogout do Java
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finishAffinity() // fecha todas as telas abertas do app
@@ -48,9 +52,9 @@ class PerfilActivity : AppCompatActivity() {
     }
 
     private fun carregarPerfil() {
-        // perfilId = dono do perfil exibido; usuarioId = quem está logado
+        // perfilId = dono do perfil exibido; usuarioId = quem está logado (vem da sessão)
         val perfilId = intent.getIntExtra("perfilId", 0)
-        val usuarioId = intent.getIntExtra("usuarioId", 0)
+        val usuarioId = Sessao.getUsuarioId(this)
 
         // O botão Sair só aparece no perfil do próprio usuário
         if (perfilId == usuarioId) {

@@ -1,7 +1,7 @@
-package br.com.claquete.data
+package br.com.ifilmes.data
 
-import br.com.claquete.BuildConfig
-import br.com.claquete.model.Filme
+import br.com.ifilmes.BuildConfig
+import br.com.ifilmes.model.Filme
 import org.json.JSONObject
 import java.net.HttpURLConnection
 import java.net.URL

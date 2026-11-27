@@ -1,26 +1,35 @@
-package br.com.claquete.ui
+package br.com.ifilmes.ui
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import br.com.claquete.R
-import br.com.claquete.data.ClaqueteDatabase
-import br.com.claquete.databinding.ActivityLoginBinding
+import br.com.ifilmes.R
+import br.com.ifilmes.data.IFilmesDatabase
+import br.com.ifilmes.databinding.ActivityLoginBinding
+import br.com.ifilmes.model.Usuario
+import br.com.ifilmes.util.Sessao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var db: ClaqueteDatabase
+    private lateinit var db: IFilmesDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Se já existe uma sessão válida, o usuário continua logado e vai direto para o catálogo
+        if (Sessao.getUsuarioId(this) != 0) {
+            abrirCatalogo()
+            return
+        }
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        db = ClaqueteDatabase.getInstance(this)
+        db = IFilmesDatabase.getInstance(this)
         setupListeners()
     }
 
@@ -41,18 +50,25 @@ class LoginActivity : AppCompatActivity() {
             return
         }
 
+        // Gera o hash da senha digitada para comparar com o hash salvo no banco
+        val senhaHash = Usuario.criptografarSenha(email, senha)
+
         lifecycleScope.launch(Dispatchers.IO) {
             val usuario = db.usuarioDao().buscarPorEmail(email)
             withContext(Dispatchers.Main) {
-                if (usuario != null && usuario.senha == senha) {
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    intent.putExtra("usuarioId", usuario.id)
-                    startActivity(intent)
-                    finish()
+                if (usuario != null && usuario.senha == senhaHash) {
+                    Sessao.criar(this@LoginActivity, usuario.id)
+                    abrirCatalogo()
                 } else {
                     Toast.makeText(this@LoginActivity, R.string.erro_login, Toast.LENGTH_SHORT).show()
                 }
             }
         }
+    }
+
+    private fun abrirCatalogo() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

@@ -1,4 +1,4 @@
-package br.com.claquete.ui
+package br.com.ifilmes.ui
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,10 +7,10 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import br.com.claquete.R
-import br.com.claquete.data.ClaqueteDatabase
-import br.com.claquete.databinding.ActivityCadastroUsuarioBinding
-import br.com.claquete.model.Usuario
+import br.com.ifilmes.R
+import br.com.ifilmes.data.IFilmesDatabase
+import br.com.ifilmes.databinding.ActivityCadastroUsuarioBinding
+import br.com.ifilmes.model.Usuario
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,14 +18,14 @@ import kotlinx.coroutines.withContext
 class CadastroUsuarioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCadastroUsuarioBinding
     private lateinit var launcherGaleria: ActivityResultLauncher<Array<String>>
-    private lateinit var db: ClaqueteDatabase
+    private lateinit var db: IFilmesDatabase
     private var uriSelecionada = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCadastroUsuarioBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        db = ClaqueteDatabase.getInstance(this)
+        db = IFilmesDatabase.getInstance(this)
         setupLauncher()
         setupListeners()
     }
@@ -63,7 +63,9 @@ class CadastroUsuarioActivity : AppCompatActivity() {
             return
         }
 
-        val usuario = Usuario(nome = nome, email = email, senha = senha, foto = uriSelecionada)
+        // A senha é salva como hash SHA-256, nunca em texto puro
+        val senhaHash = Usuario.criptografarSenha(email, senha)
+        val usuario = Usuario(nome = nome, email = email, senha = senhaHash, foto = uriSelecionada)
 
         lifecycleScope.launch(Dispatchers.IO) {
             val existente = db.usuarioDao().buscarPorEmail(email)

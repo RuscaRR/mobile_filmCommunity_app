@@ -1,5 +1,5 @@
 <resources>
-    <style name="Base.Theme.Claquete" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.IFilmes" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/onPrimary</item>
         <item name="colorSecondary">@color/secondary</item>
@@ -11,5 +11,5 @@
         <item name="android:windowBackground">@color/background</item>
     </style>
 
-    <style name="Theme.Claquete" parent="Base.Theme.Claquete" />
+    <style name="Theme.IFilmes" parent="Base.Theme.IFilmes" />
 </resources>
