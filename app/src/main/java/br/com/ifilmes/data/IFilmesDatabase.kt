@@ -37,7 +37,8 @@ abstract class IFilmesDatabase : RoomDatabase() {
         }
 
         // Roda só uma vez, quando o banco é criado na primeira abertura do app.
-        // Insere 10 filmes populares de 2026 para o catálogo não começar vazio.
+        // Insere 10 filmes populares de 2026 para o catálogo não começar vazio,
+        // e alguns usuários e avaliações de exemplo para a Comunidade.
         // O INSERT usa "?" nos valores, como o PreparedStatement dos DAOs do projeto Java.
         private fun filmesIniciais(context: Context) = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
@@ -62,8 +63,60 @@ abstract class IFilmesDatabase : RoomDatabase() {
                         arrayOf(filme.tmdbId, filme.tipo, filme.titulo, filme.ano, filme.sinopse, filme.poster, filme.usuarioId)
                     )
                 }
+
+                // Usuários de exemplo, para a Comunidade não começar vazia.
+                // Todos usam a senha 123456 (salva como hash, igual ao cadastro).
+                val usuarios = listOf(
+                    usuarioInicial("Ana Souza", "ana@ifilmes.com"),
+                    usuarioInicial("Bruno Lima", "bruno@ifilmes.com"),
+                    usuarioInicial("Carla Mendes", "carla@ifilmes.com"),
+                    usuarioInicial("Diego Rocha", "diego@ifilmes.com")
+                )
+
+                usuarios.forEach { usuario ->
+                    db.execSQL(
+                        "INSERT INTO usuario (nome, email, senha, foto) VALUES (?, ?, ?, ?)",
+                        arrayOf(usuario.nome, usuario.email, usuario.senha, usuario.foto)
+                    )
+                }
+
+                // Avaliações de exemplo. Como o banco acabou de ser criado, os ids começam em 1
+                // na ordem das listas: filme 0 da lista tem id 1, usuário 0 tem id 1, e assim por diante.
+                fun avaliacaoInicial(usuario: Int, filme: Int, nota: Float, comentario: Int) = Avaliacao(
+                    filmeId = filme + 1,
+                    usuarioId = usuario + 1,
+                    nomeUsuario = usuarios[usuario].nome,
+                    tituloFilme = filmes[filme].titulo,
+                    nota = nota,
+                    comentario = context.getString(comentario)
+                )
+
+                val avaliacoes = listOf(
+                    avaliacaoInicial(0, 1, 5f, R.string.avaliacao_exemplo_1),
+                    avaliacaoInicial(1, 0, 4f, R.string.avaliacao_exemplo_2),
+                    avaliacaoInicial(2, 2, 4.5f, R.string.avaliacao_exemplo_3),
+                    avaliacaoInicial(3, 6, 5f, R.string.avaliacao_exemplo_4),
+                    avaliacaoInicial(0, 3, 3.5f, R.string.avaliacao_exemplo_5),
+                    avaliacaoInicial(1, 4, 4f, R.string.avaliacao_exemplo_6),
+                    avaliacaoInicial(2, 5, 4.5f, R.string.avaliacao_exemplo_7),
+                    avaliacaoInicial(3, 8, 4f, R.string.avaliacao_exemplo_8),
+                    avaliacaoInicial(0, 9, 4.5f, R.string.avaliacao_exemplo_9)
+                )
+
+                avaliacoes.forEach { avaliacao ->
+                    db.execSQL(
+                        "INSERT INTO avaliacao (filmeId, usuarioId, nomeUsuario, tituloFilme, nota, comentario) VALUES (?, ?, ?, ?, ?, ?)",
+                        arrayOf(avaliacao.filmeId, avaliacao.usuarioId, avaliacao.nomeUsuario, avaliacao.tituloFilme, avaliacao.nota, avaliacao.comentario)
+                    )
+                }
             }
         }
+
+        private fun usuarioInicial(nome: String, email: String) = Usuario(
+            nome = nome,
+            email = email,
+            senha = Usuario.criptografarSenha(email, "123456")
+        )
 
         // Monta o Filme com os textos do strings.xml (no idioma do celular) e o pôster do TMDB.
         // usuarioId = 0: filme do sistema, por isso nenhum usuário vê o botão Remover.

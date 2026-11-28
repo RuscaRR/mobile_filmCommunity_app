@@ -42,7 +42,12 @@ class DetalheFilmeActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = AvaliacaoAdapter(listOf(), false)
+        // Tocar numa avaliação abre o perfil de quem avaliou
+        adapter = AvaliacaoAdapter(listOf(), true, false) { avaliacao ->
+            val intent = Intent(this, PerfilActivity::class.java)
+            intent.putExtra("perfilId", avaliacao.usuarioId)
+            startActivity(intent)
+        }
         binding.rvAvaliacoes.apply {
             layoutManager = LinearLayoutManager(this@DetalheFilmeActivity)
             adapter = this@DetalheFilmeActivity.adapter
@@ -68,7 +73,12 @@ class DetalheFilmeActivity : AppCompatActivity() {
             filme = db.filmeDao().buscarPorId(filmeId)
             usuario = db.usuarioDao().buscarPorId(usuarioId)
             withContext(Dispatchers.Main) {
-                mostrarFilme()
+                // O filme pode ter sido removido enquanto outra tela estava aberta
+                if (filme == null) {
+                    finish()
+                } else {
+                    mostrarFilme()
+                }
             }
             carregarAvaliacoes()
         }

@@ -29,7 +29,7 @@
     <string name="btn_comunidade">Community</string>
     <string name="btn_perfil">Profile</string>
     <string name="titulo_lancamentos">2026 Releases</string>
-    <string name="titulo_minha_lista">My List</string>
+    <string name="titulo_adicionados">Added by the community</string>
     <string name="msg_lista_vazia">Tap Add to search for a movie or series.</string>
     <string name="btn_config">Settings</string>
     <string name="btn_tema">Day / Night</string>
@@ -61,6 +61,9 @@
 
     <!-- Comunidade e perfil -->
     <string name="comunidade_titulo">Community</string>
+    <string name="feed_subtitulo">Recent reviews</string>
+    <string name="feed_item">%1$s rated %2$s</string>
+    <string name="msg_feed_vazio">No reviews yet. Rate a movie to get things started!</string>
     <string name="total_avaliacoes">%1$d reviews</string>
     <string name="btn_sair">Sign out</string>
     <string name="nota">★ %1$.1f</string>
@@ -86,4 +89,15 @@
     <string name="sinopse_mandaloriano">After the fall of the Empire, the New Republic recruits the bounty hunter Din Djarin and his apprentice Grogu to hunt down Imperial warlords.</string>
     <string name="filme_hoppers">Hoppers</string>
     <string name="sinopse_hoppers">With a technology that moves human minds into robot animals, the animal lover Mabel discovers secrets of the animal world. A Pixar film.</string>
+
+    <!-- Avaliações de exemplo dos usuários fictícios -->
+    <string name="avaliacao_exemplo_1">Nolan nailed it again. The scenes at sea are breathtaking.</string>
+    <string name="avaliacao_exemplo_2">Great Spider-Man movie, but the villain could have been used better.</string>
+    <string name="avaliacao_exemplo_3">I cried again. Woody\'s gang never disappoints.</string>
+    <string name="avaliacao_exemplo_4">Best sci-fi of the year, and the book was already amazing.</string>
+    <string name="avaliacao_exemplo_5">The songs are amazing, but the story moves too fast.</string>
+    <string name="avaliacao_exemplo_6">Fun from start to finish, full of references to the games.</string>
+    <string name="avaliacao_exemplo_7">Miranda is still the best part. Worth the wait!</string>
+    <string name="avaliacao_exemplo_8">Grogu steals every scene.</string>
+    <string name="avaliacao_exemplo_9">Creative and cute, Pixar at its best.</string>
 </resources>

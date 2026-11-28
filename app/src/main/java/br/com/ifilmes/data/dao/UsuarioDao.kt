@@ -10,9 +10,6 @@ interface UsuarioDao {
     @Insert
     suspend fun inserir(usuario: Usuario)
 
-    @Query("SELECT * FROM usuario ORDER BY nome ASC")
-    suspend fun listarTodos(): List<Usuario>
-
     @Query("SELECT * FROM usuario WHERE id = :id")
     suspend fun buscarPorId(id: Int): Usuario?
 

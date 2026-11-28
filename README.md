@@ -2,7 +2,7 @@
 
 An Android app for cataloging movies and series, built in Kotlin for the Mobile Development course (IFSP Araraquara).
 
-Each user creates an account, adds movies and series to the catalog by searching for them by name, and writes reviews with a rating. The Community screen lists the other users and the reviews each one has written.
+Each user creates an account, adds movies and series to the catalog by searching for them by name, and writes reviews with a rating. The Community screen shows a feed with the latest reviews from every user.
 
 Titles, posters and synopses come from the [The Movie Database (TMDB)](https://www.themoviedb.org/) API.
 
@@ -10,11 +10,11 @@ Titles, posters and synopses come from the [The Movie Database (TMDB)](https://w
 
 - Sign up and sign in, with passwords stored as a salted SHA-256 hash
 - Login session that keeps the user signed in after the app is closed
-- Home screen with two sections: **2026 Releases** (10 popular movies included on first launch) and **My List** (titles added through the search)
+- Home screen with two sections: **2026 Releases** (10 popular movies included on first launch) and **Added by the community** (titles any user added through the search)
 - Search on TMDB and add movies or series to the catalog
 - Movie details with synopsis, rating average, reviews and a link to the TMDB page
 - User profile with photo from the gallery and the list of reviews
-- Community screen with all users
+- Community feed with the latest reviews; tap a review to open the movie, and tap a review on a movie to open that user's profile
 - Settings gear to switch between light/dark theme and Portuguese/English
 
 ## Built with
@@ -41,10 +41,10 @@ Titles, posters and synopses come from the [The Movie Database (TMDB)](https://w
 
 ```
 app/src/main/java/br/com/ifilmes/
-├── adapter/   RecyclerView adapters (movies, reviews, users)
+├── adapter/   RecyclerView adapters (movies and reviews)
 ├── data/      Room database, DAOs and the TMDB API client
 ├── model/     Room entities: Usuario, Filme, Avaliacao
-├── ui/        Activities (login, sign up, home, search, details, community, profile)
+├── ui/        Activities (login, sign up, home, search, details, community feed, profile)
 └── util/      Password hash, login session and the screen filter
 ```
 
@@ -60,9 +60,20 @@ app/src/main/java/br/com/ifilmes/
    This file is not pushed to GitHub, so each developer adds their own key.
 3. Sync Gradle and run the app on the emulator.
 
+## Demo accounts
+
+The app is created with four fictional users who already have reviews on the 2026 movies, so the Community feed is not empty on the first launch. All of them use the password `123456`:
+
+| Name | Email |
+|------|-------|
+| Ana Souza | ana@ifilmes.com |
+| Bruno Lima | bruno@ifilmes.com |
+| Carla Mendes | carla@ifilmes.com |
+| Diego Rocha | diego@ifilmes.com |
+
 ## Notes
 
-- The 10 movies in **2026 Releases** are inserted only when the database is created. To see them again after testing, uninstall the app or clear its data in the emulator settings.
+- The 10 movies in **2026 Releases**, the demo accounts and their reviews are inserted only when the database is created. To see them again after testing (or if you installed the app before they were added), uninstall the app or clear its data in the emulator settings.
 - Movies in **2026 Releases** belong to the app, so no user can remove them. A movie added through the search can be removed only by the user who added it.
 - The login session expires after 7 days without opening the app. **Sign out** on the profile screen ends it right away.
 - Passwords are never stored as typed: the app saves a SHA-256 hash of the email combined with the password.

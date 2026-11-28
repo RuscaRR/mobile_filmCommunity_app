@@ -29,7 +29,7 @@
     <string name="btn_comunidade">Comunidade</string>
     <string name="btn_perfil">Perfil</string>
     <string name="titulo_lancamentos">Lançamentos 2026</string>
-    <string name="titulo_minha_lista">Minha Lista</string>
+    <string name="titulo_adicionados">Adicionados pela comunidade</string>
     <string name="msg_lista_vazia">Toque em Adicionar para buscar um filme ou série.</string>
     <string name="btn_config">Configurações</string>
     <string name="btn_tema">Dia / Noite</string>
@@ -61,6 +61,9 @@
 
     <!-- Comunidade e perfil -->
     <string name="comunidade_titulo">Comunidade</string>
+    <string name="feed_subtitulo">Avaliações recentes</string>
+    <string name="feed_item">%1$s avaliou %2$s</string>
+    <string name="msg_feed_vazio">Nenhuma avaliação ainda. Avalie um filme para começar!</string>
     <string name="total_avaliacoes">%1$d avaliações</string>
     <string name="btn_sair">Sair</string>
     <string name="nota">★ %1$.1f</string>
@@ -86,4 +89,15 @@
     <string name="sinopse_mandaloriano">Depois da queda do Império, a Nova República recruta o caçador de recompensas Din Djarin e seu aprendiz Grogu para caçar os senhores da guerra imperiais.</string>
     <string name="filme_hoppers">Cara de Um, Focinho de Outro</string>
     <string name="sinopse_hoppers">Com uma tecnologia que leva a mente humana para animais robôs, a amante dos bichos Mabel descobre segredos do mundo animal. Um filme da Pixar.</string>
+
+    <!-- Avaliações de exemplo dos usuários fictícios -->
+    <string name="avaliacao_exemplo_1">Nolan acertou de novo. As cenas no mar são de tirar o fôlego.</string>
+    <string name="avaliacao_exemplo_2">Ótimo filme do Aranha, mas o vilão podia ser mais aproveitado.</string>
+    <string name="avaliacao_exemplo_3">Chorei de novo. A turma do Woody nunca decepciona.</string>
+    <string name="avaliacao_exemplo_4">Melhor ficção científica do ano, e o livro já era incrível.</string>
+    <string name="avaliacao_exemplo_5">As músicas são incríveis, mas a história corre rápido demais.</string>
+    <string name="avaliacao_exemplo_6">Divertido do começo ao fim, cheio de referências aos jogos.</string>
+    <string name="avaliacao_exemplo_7">A Miranda continua sendo a melhor parte. Valeu a espera!</string>
+    <string name="avaliacao_exemplo_8">O Grogu rouba todas as cenas.</string>
+    <string name="avaliacao_exemplo_9">Criativo e fofo, a Pixar em ótima forma.</string>
 </resources>

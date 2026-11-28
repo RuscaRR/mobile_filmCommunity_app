@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/etFiltro" />
 
-    <!-- Duas seções que rolam juntas: Lançamentos 2026 e Minha Lista -->
+    <!-- Duas seções que rolam juntas: Lançamentos 2026 e Adicionados pela comunidade -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollFilmes"
         android:layout_width="0dp"
@@ -88,12 +88,12 @@
                 android:nestedScrollingEnabled="false" />
 
             <TextView
-                android:id="@+id/tvMinhaLista"
+                android:id="@+id/tvAdicionados"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="4dp"
-                android:text="@string/titulo_minha_lista"
+                android:text="@string/titulo_adicionados"
                 android:textColor="?attr/colorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -106,7 +106,7 @@
                 android:text="@string/msg_lista_vazia" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvMinhaLista"
+                android:id="@+id/rvAdicionados"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:nestedScrollingEnabled="false" />

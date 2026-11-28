@@ -2,10 +2,11 @@ package br.com.ifilmes.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.ifilmes.adapter.UsuarioAdapter
+import br.com.ifilmes.adapter.AvaliacaoAdapter
 import br.com.ifilmes.data.IFilmesDatabase
 import br.com.ifilmes.databinding.ActivityComunidadeBinding
 import br.com.ifilmes.util.FiltroApp
@@ -13,9 +14,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+// Feed da comunidade: mostra as avaliações mais recentes de todos os usuários
 class ComunidadeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityComunidadeBinding
-    private lateinit var adapter: UsuarioAdapter
+    private lateinit var adapter: AvaliacaoAdapter
     private lateinit var db: IFilmesDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,26 +28,32 @@ class ComunidadeActivity : AppCompatActivity() {
         db = IFilmesDatabase.getInstance(this)
         setupRecyclerView()
         binding.btnVoltar.setOnClickListener { finish() }
-        carregarUsuarios()
+    }
+
+    // Recarrega toda vez que a tela volta a aparecer, para mostrar avaliações novas
+    override fun onResume() {
+        super.onResume()
+        carregarFeed()
     }
 
     private fun setupRecyclerView() {
-        adapter = UsuarioAdapter(listOf()) { usuario ->
-            val intent = Intent(this, PerfilActivity::class.java)
-            intent.putExtra("perfilId", usuario.id)
+        adapter = AvaliacaoAdapter(listOf(), true, true) { avaliacao ->
+            val intent = Intent(this, DetalheFilmeActivity::class.java)
+            intent.putExtra("filmeId", avaliacao.filmeId)
             startActivity(intent)
         }
-        binding.rvUsuarios.apply {
+        binding.rvFeed.apply {
             layoutManager = LinearLayoutManager(this@ComunidadeActivity)
             adapter = this@ComunidadeActivity.adapter
         }
     }
 
-    private fun carregarUsuarios() {
+    private fun carregarFeed() {
         lifecycleScope.launch(Dispatchers.IO) {
-            val usuarios = db.usuarioDao().listarTodos()
+            val avaliacoes = db.avaliacaoDao().listarRecentes()
             withContext(Dispatchers.Main) {
-                adapter.updateLista(usuarios)
+                adapter.updateLista(avaliacoes)
+                binding.tvFeedVazio.visibility = if (avaliacoes.isEmpty()) View.VISIBLE else View.GONE
             }
         }
     }

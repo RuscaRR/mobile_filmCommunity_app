@@ -16,6 +16,10 @@ interface AvaliacaoDao {
     @Query("SELECT * FROM avaliacao WHERE usuarioId = :usuarioId ORDER BY id DESC")
     suspend fun listarPorUsuario(usuarioId: Int): List<Avaliacao>
 
+    // Feed da comunidade: as avaliações mais novas de todos os usuários
+    @Query("SELECT * FROM avaliacao ORDER BY id DESC LIMIT 50")
+    suspend fun listarRecentes(): List<Avaliacao>
+
     @Query("DELETE FROM avaliacao WHERE filmeId = :filmeId")
     suspend fun deletarPorFilme(filmeId: Int)
 }

@@ -7,11 +7,15 @@ import br.com.ifilmes.R
 import br.com.ifilmes.databinding.ItemAvaliacaoBinding
 import br.com.ifilmes.model.Avaliacao
 
-// mostrarFilme = true: mostra o título do filme (tela de perfil)
-// mostrarFilme = false: mostra o nome de quem avaliou (tela de detalhes)
+// O título de cada item muda conforme a tela:
+// mostrarUsuario e mostrarFilme = true: "Ana avaliou Interestelar" (feed da comunidade)
+// só mostrarFilme = true: título do filme (tela de perfil)
+// só mostrarUsuario = true: nome de quem avaliou (tela de detalhes)
 class AvaliacaoAdapter(
     private var avaliacoes: List<Avaliacao>,
-    private val mostrarFilme: Boolean
+    private val mostrarUsuario: Boolean,
+    private val mostrarFilme: Boolean,
+    private val onClick: (Avaliacao) -> Unit
 ) : RecyclerView.Adapter<AvaliacaoAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,9 +38,18 @@ class AvaliacaoAdapter(
 
     inner class ViewHolder(val binding: ItemAvaliacaoBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(avaliacao: Avaliacao) {
-            binding.tvNome.text = if (mostrarFilme) avaliacao.tituloFilme else avaliacao.nomeUsuario
-            binding.tvNota.text = binding.root.context.getString(R.string.nota, avaliacao.nota)
+            val contexto = binding.root.context
+
+            binding.tvNome.text = if (mostrarUsuario && mostrarFilme) {
+                contexto.getString(R.string.feed_item, avaliacao.nomeUsuario, avaliacao.tituloFilme)
+            } else if (mostrarFilme) {
+                avaliacao.tituloFilme
+            } else {
+                avaliacao.nomeUsuario
+            }
+            binding.tvNota.text = contexto.getString(R.string.nota, avaliacao.nota)
             binding.tvComentario.text = avaliacao.comentario
+            binding.root.setOnClickListener { onClick(avaliacao) }
         }
     }
 }

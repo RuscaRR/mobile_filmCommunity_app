@@ -34,7 +34,12 @@ class PerfilActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = AvaliacaoAdapter(listOf(), true)
+        // Tocar numa avaliação abre o filme avaliado
+        adapter = AvaliacaoAdapter(listOf(), false, true) { avaliacao ->
+            val intent = Intent(this, DetalheFilmeActivity::class.java)
+            intent.putExtra("filmeId", avaliacao.filmeId)
+            startActivity(intent)
+        }
         binding.rvAvaliacoes.apply {
             layoutManager = LinearLayoutManager(this@PerfilActivity)
             adapter = this@PerfilActivity.adapter

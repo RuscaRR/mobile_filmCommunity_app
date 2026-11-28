@@ -28,7 +28,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapterLancamentos: FilmeAdapter
-    private lateinit var adapterMinhaLista: FilmeAdapter
+    private lateinit var adapterAdicionados: FilmeAdapter
     private lateinit var launcherAtualizar: ActivityResultLauncher<Intent>
     private lateinit var db: IFilmesDatabase
     private var filmes: List<Filme> = listOf()
@@ -55,10 +55,10 @@ class MainActivity : AppCompatActivity() {
             adapter = adapterLancamentos
         }
 
-        adapterMinhaLista = FilmeAdapter(listOf()) { filme -> abrirDetalhe(filme) }
-        binding.rvMinhaLista.apply {
+        adapterAdicionados = FilmeAdapter(listOf()) { filme -> abrirDetalhe(filme) }
+        binding.rvAdicionados.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = adapterMinhaLista
+            adapter = adapterAdicionados
         }
     }
 
@@ -120,15 +120,15 @@ class MainActivity : AppCompatActivity() {
         }
 
         // usuarioId = 0 são os filmes do sistema (Lançamentos 2026);
-        // os outros foram adicionados pelos usuários na busca (Minha Lista)
+        // os outros foram adicionados pelos usuários na busca (Adicionados pela comunidade)
         val lancamentos = filtrados.filter { it.usuarioId == 0 }
-        val minhaLista = filtrados.filter { it.usuarioId != 0 }
+        val adicionados = filtrados.filter { it.usuarioId != 0 }
 
         adapterLancamentos.updateLista(lancamentos)
-        adapterMinhaLista.updateLista(minhaLista)
+        adapterAdicionados.updateLista(adicionados)
 
         binding.tvLancamentos.visibility = if (lancamentos.isEmpty()) View.GONE else View.VISIBLE
-        binding.tvListaVazia.visibility = if (minhaLista.isEmpty()) View.VISIBLE else View.GONE
+        binding.tvListaVazia.visibility = if (adicionados.isEmpty()) View.VISIBLE else View.GONE
     }
 
     // A engrenagem abre um menu com as duas opções: tema e idioma
